@@ -32,9 +32,18 @@ function sendSongStartMessage()
     API.sendChat(getRandomArrayValue(messages));
 }
 
-function removeFromWaitlistIfVoteWasMeh(voteObj)
+function removeFromWaitlistIfVoteWasMeh(vote)
 {
-    var vote = voteObj.vote == 1 ? "woot" : "meh";
+    var message = "Meh-ing is frowned upon here. If you think a song is gay, please do as the gay community would do, and be positive. Thanks.";
+
+    if (vote.vote === -1) { // if vote is 'meh'
+        if (API.getWaitListPosition(vote.user.id) !== -1) { // if user is in waitlist
+            API.sendChat("@" + vote.user.username + " You have been removed from the DJ Wait List. " + message + " (was: " + (API.getWaitListPosition(vote.user.id)+1) + "/" + API.getWaitList().length + ")");
+            API.moderateRemoveDJ(vote.user.id);
+        } else {
+            API.sendChat("@" + vote.user.username + " " + message);
+        }
+    }
 }
 
 function sendUserJoinMessage(user)
@@ -58,7 +67,7 @@ function getRoomName()
     );
 
     // 5% chance to use funny joke room name
-    if (Math.random() < 0.05)
+    if (Math.random() < 0.1)
         return getRandomArrayValue(roomnames);
     else
         return "Hitler & The AIDS, Live!!";
