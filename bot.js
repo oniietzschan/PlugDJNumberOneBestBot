@@ -23,6 +23,8 @@ var bot =
     sendSongStartMessage: function()
     {
         var self = this,
+            user = API.getDJs()[0],
+            song = API.getMedia(),
             messages = new Array(
                 "here we go rock out",
                 "here we go guys",
@@ -34,11 +36,23 @@ var bot =
             messagesRare = new Array(
                 "saddle up, pardner, you are about to hear a good song",
                 "to be perfectly honest, i'm not into this next one all that much"
+            ),
+            messagesNDAD = new Array(
+                "wow hydropolis who's this exciting new band I don't think you've ever played them before??"//,
+                //"dang, you're always bringing out new and exiciting artists that you've never played",
+                //"i've never heard anything like this, why haven't you played this band here before"
             );
 
         // 10% chance to use rare messages
         if (Math.random() < 0.10)
             messages = messagesRare;
+
+        //own Hydropolis
+        var artistCheck = new RegExp("/nero's day at disneyland|neros day at disneyland|bousfield|ndad");
+        if (artistCheck.test( song.author.toLowerCase() ) && user.id == "50aeb38cd6e4a94f7747b604") {
+            self.sendChat(self.getRandomArrayValue(messages));
+            return;
+        }
 
         self.sendChat(self.getRandomArrayValue(messages));
     },
@@ -78,6 +92,7 @@ var bot =
             "Monstercat + Tasty = #Tastycat",
             "/r/music",
             "Rock Wins",
+            "♪ϟ☆ Self-Help Audiobooks Den ☆ϟ♪",
             "高登音樂台"
         );
 
