@@ -1,9 +1,13 @@
 API.setVolume(0);
 
-API.on(API.DJ_ADVANCE, function() {
+API.on(API.DJ_ADVANCE,  sendSongStartMessage);
+API.on(API.VOTE_UPDATE, removeFromWaitlistIfVoteWasMeh);
+API.on(API.USER_JOIN,   sendUserJoinMessage);
+
+function sendSongStartMessage()
+{
     setTimeout(function() {
-        var self = this;
-            messages = new Array(
+        var messages = new Array(
                 "here we go rock out",
                 "here we go guys",
                 "here is a good video",
@@ -20,10 +24,47 @@ API.on(API.DJ_ADVANCE, function() {
         if (Math.random() < 0.10)
             messages = messagesRare;
 
-        var randomIndex = Math.floor(Math.random()*messages.length)
-        API.sendChat(messages[randomIndex]);
+        API.sendChat(getRandomArrayValue(messages));
 
         $("#woot").click();
-
     }, 3500);
-});
+}
+
+function removeFromWaitlistIfVoteWasMeh(voteObj)
+{
+    var vote = voteObj.vote == 1 ? "woot" : "meh";
+}
+
+function sendUserJoinMessage(value)
+{
+    var user = { username: "shru" };
+    API.sendChat("@" + user.username + " welcome to " + getRoomName());
+}
+
+function getRoomName()
+{
+    var roomnames = new Array(
+        "★Anime Games Music★",
+        "★Brazil Eletro Music ★",
+        "██►Dubstep For Your Nipples◄██",
+        "Drum & Bass (NoDrumstep)",
+        "ϟ Electro,Dυbรтєρ & Techno ϟ",
+        "FiM: Your daily ponies",
+        "Monstercat + Tasty = #Tastycat",
+        "/r/music",
+        "Rock Wins",
+        "高登音樂台"
+    );
+
+    // 5% chance to use funny joke room name
+    if (Math.random() < 0.05)
+        return getRandomArrayValue(roomnames);
+    else
+        return "Hitler & The AIDS, Live!!";
+}
+
+function getRandomArrayValue(array)
+{
+    var randomIndex = Math.floor(Math.random()*array.length);
+    return array[randomIndex];
+}
