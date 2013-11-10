@@ -1,38 +1,35 @@
 API.setVolume(0);
 
-// Unbind previously set event callbacks so that we can reload this script without refreshing
-API.off(API.DJ_ADVANCE,  sendSongStartMessage);
-API.off(API.VOTE_UPDATE, removeFromWaitlistIfVoteWasMeh);
-API.off(API.USER_JOIN,   sendUserJoinMessage);
-
+API.on(API.DJ_ADVANCE,  autoWoot);
 API.on(API.DJ_ADVANCE,  sendSongStartMessage);
 API.on(API.VOTE_UPDATE, removeFromWaitlistIfVoteWasMeh);
 API.on(API.USER_JOIN,   sendUserJoinMessage);
 
+function autoWoot()
+{
+    $("#woot").click();
+}
+
 function sendSongStartMessage()
 {
-    setTimeout(function() {
-        var messages = new Array(
-                "here we go rock out",
-                "here we go guys",
-                "here is a good video",
-                "here is a great song",
-                "here we go everyone",
-                "hell yeahh"
-            ),
-            messagesRare = new Array(
-                "saddle up, pardner, you are about to hear a good song",
-                "to be perfectly honest, i'm not into this next one all that much"
-            );
+    var messages = new Array(
+            "here we go rock out",
+            "here we go guys",
+            "here is a good video",
+            "here is a great song",
+            "here we go everyone",
+            "hell yeahh"
+        ),
+        messagesRare = new Array(
+            "saddle up, pardner, you are about to hear a good song",
+            "to be perfectly honest, i'm not into this next one all that much"
+        );
 
-        // 10% chance to use rare messages
-        if (Math.random() < 0.10)
-            messages = messagesRare;
+    // 10% chance to use rare messages
+    if (Math.random() < 0.10)
+        messages = messagesRare;
 
-        API.sendChat(getRandomArrayValue(messages));
-
-        $("#woot").click();
-    }, 3500);
+    API.sendChat(getRandomArrayValue(messages));
 }
 
 function removeFromWaitlistIfVoteWasMeh(voteObj)
