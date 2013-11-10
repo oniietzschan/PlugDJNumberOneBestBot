@@ -1,5 +1,10 @@
 API.setVolume(0);
 
+// Unbind previously set event callbacks so that we can reload this script without refreshing
+API.off(API.DJ_ADVANCE,  sendSongStartMessage);
+API.off(API.VOTE_UPDATE, removeFromWaitlistIfVoteWasMeh);
+API.off(API.USER_JOIN,   sendUserJoinMessage);
+
 API.on(API.DJ_ADVANCE,  sendSongStartMessage);
 API.on(API.VOTE_UPDATE, removeFromWaitlistIfVoteWasMeh);
 API.on(API.USER_JOIN,   sendUserJoinMessage);
@@ -35,9 +40,8 @@ function removeFromWaitlistIfVoteWasMeh(voteObj)
     var vote = voteObj.vote == 1 ? "woot" : "meh";
 }
 
-function sendUserJoinMessage(value)
+function sendUserJoinMessage(user)
 {
-    var user = { username: "shru" };
     API.sendChat("@" + user.username + " welcome to " + getRoomName());
 }
 
