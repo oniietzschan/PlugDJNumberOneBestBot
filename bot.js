@@ -17,7 +17,7 @@ API.on(API.DJ_ADVANCE, function() {
             );
 
         // 10% chance to use rare messages
-        if (Math.random() < 1)
+        if (Math.random() < 0.10)
             messages = messagesRare;
 
         var randomIndex = Math.floor(Math.random()*messages.length)
