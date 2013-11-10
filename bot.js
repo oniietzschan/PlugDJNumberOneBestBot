@@ -62,7 +62,7 @@ var bot =
         //own Hydropolis
         var artistCheck = new RegExp("/nero's day at disneyland|neros day at disneyland|bousfield|ndad");
         if (artistCheck.test( song.author.toLowerCase() ) && user.id == "50aeb38cd6e4a94f7747b604") {
-            self.sendChat(self.getRandomArrayValue(messages));
+            self.sendChat(self.getRandomArrayValue(messages), user);
             return;
         }
 
