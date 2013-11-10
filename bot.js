@@ -35,7 +35,19 @@ var bot =
             ),
             messagesRare = new Array(
                 "saddle up, pardner, you are about to hear a good song",
-                "to be perfectly honest, i'm not into this next one all that much"
+                "to be perfectly honest, i'm not into this next one all that much",
+                "fucking piece of my dick.....",
+                "listen, i know the start of this track is gay, but bear with me, just wait for the drop, it's worth it",
+                "in a way, {{artist}}s songs are all sad, because they all have an ending",
+                "thanks for 1mil views! {{artists}} ftw",
+                "omgomgom i cna't beliee ppl are liking this song",
+                "{{artist}} are alright..... but not as good as type o negative",
+                "{{artist}} were such a great band, r.i.p. kurt kobain >:",
+                "now playing: {{artist}} - {{title}} ({{dubstep}} remix)",
+                "a steampunk fantasy based on the new {{artist}} album",
+                "look here you dumb slut. don't you ever say {{artist}} is for fags and losers. {{artist}} is legendary. they created and change what we call music.",
+                "{{artist}} is for fags, the beatles arn't for fags!!! got it!!!",
+                "I feel like too many people these days only take {{artist}} for face value, only know their radio hits, and just haven't dug into this band nearly as much as I have."
             ),
             messagesNDAD = new Array(
                 "wow hydropolis who's this exciting new band I don't think you've ever played them before??"//,
@@ -43,8 +55,8 @@ var bot =
                 //"i've never heard anything like this, why haven't you played this band here before"
             );
 
-        // 10% chance to use rare messages
-        if (Math.random() < 0.10)
+        // 20% chance to use rare messages
+        if (Math.random() < 0.2)
             messages = messagesRare;
 
         //own Hydropolis
@@ -93,7 +105,9 @@ var bot =
             "/r/music",
             "Rock Wins",
             "♪ϟ☆ Self-Help Audiobooks Den ☆ϟ♪",
-            "高登音樂台"
+            "高登音樂台",
+            "{{artist}} 24/7",
+            "{{dubstep}} 24/7"
         );
 
         // 5% chance to use funny joke room name
@@ -103,18 +117,46 @@ var bot =
             return "Hitler & The AIDS, Live!!";
     },
 
+    sendChat: function(message, user)
+    {
+        var self = this;
+
+        if (typeof user === "object")
+            message = "@" + user.username + " " + message;
+
+        message = self.sparseTeenMustache(message);
+
+        API.sendChat(message);
+    },
+
+    sparseTeenMustache: function(text) //templating the hard way
+    {
+        var self = this,
+            song = API.getMedia(),
+            dubstep = new Array(
+                "borgore",
+                "datsik",
+                "deadmau5",
+                "excision",
+                "flux pavilion",
+                "knife party",
+                "nero",
+                "skream",
+                "skrillex",
+                "zomby"
+            );
+
+        return text
+            .replace(/{{artist}}/g, song.author.toLowerCase())
+            .replace(/{{title}}/g, song.title.toLowerCase())
+            .replace(/{{dubstep}}/g, self.getRandomArrayValue(dubstep))
+        ;
+    },
+
     getRandomArrayValue: function(array)
     {
         var randomIndex = Math.floor(Math.random()*array.length);
         return array[randomIndex];
-    },
-
-    sendChat: function(message, user)
-    {
-        if (typeof user === "object")
-            message = "@" + user.username + " " + message;
-
-        API.sendChat(message);
     }
 };
 
