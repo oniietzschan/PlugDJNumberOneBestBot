@@ -1,15 +1,10 @@
 API.setVolume(0);
 
 API.on(API.CHAT,        pointBreakdownCommand);
-API.on(API.DJ_ADVANCE,  autoWoot);
+API.on(API.DJ_ADVANCE,  function(){$("#woot").click();});
 API.on(API.DJ_ADVANCE,  sendSongStartMessage);
 API.on(API.VOTE_UPDATE, removeFromWaitlistIfVoteWasMeh);
 API.on(API.USER_JOIN,   sendUserJoinMessage);
-
-function autoWoot()
-{
-    $("#woot").click();
-}
 
 function pointBreakdownCommand(chatObj)
 {
@@ -26,6 +21,7 @@ function pointBreakdownCommand(chatObj)
         );
     }
 }
+
 
 function sendSongStartMessage()
 {
