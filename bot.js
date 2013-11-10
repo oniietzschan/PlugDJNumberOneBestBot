@@ -1,5 +1,6 @@
 API.setVolume(0);
 
+API.on(API.CHAT,        pointBreakdownCommand);
 API.on(API.DJ_ADVANCE,  autoWoot);
 API.on(API.DJ_ADVANCE,  sendSongStartMessage);
 API.on(API.VOTE_UPDATE, removeFromWaitlistIfVoteWasMeh);
@@ -8,6 +9,22 @@ API.on(API.USER_JOIN,   sendUserJoinMessage);
 function autoWoot()
 {
     $("#woot").click();
+}
+
+function pointBreakdownCommand(chatObj)
+{
+    var user = API.getUser(chatObj.fromID);
+
+    if (chatObj.message == "!points") {
+        var totalPoints = user.curatorPoints + user.djPoints + user.listenerPoints;
+
+        API.sendChat(
+            "@" + chatObj.from + " your points breakdown is: " +
+            "Curates: "   + user.curatorPoints  + " (" + (user.curatorPoints /totalPoints*100).toFixed(1) + "%) " +
+            "DJing: "     + user.djPoints       + " (" + (user.djPoints      /totalPoints*100).toFixed(1) + "%) " +
+            "Listening: " + user.listenerPoints + " (" + (user.listenerPoints/totalPoints*100).toFixed(1) + "%)"
+        );
+    }
 }
 
 function sendSongStartMessage()
