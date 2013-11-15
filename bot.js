@@ -56,13 +56,13 @@ var bot =
             );
 
         // 20% chance to use rare messages
-        if (Math.random() < 0.2)
+        if (Math.random() < 0.1)
             messages = messagesRare;
 
         //own Hydropolis
         var artistCheck = new RegExp("/nero's day at disneyland|neros day at disneyland|bousfield|ndad");
         if (artistCheck.test( song.author.toLowerCase() ) && user.id == "50aeb38cd6e4a94f7747b604") {
-            self.sendChat(self.getRandomArrayValue(messages), user);
+            self.sendChat(self.getRandomArrayValue(messagesNDAD), user);
             return;
         }
 
@@ -74,13 +74,15 @@ var bot =
         var self = this,
             message = "Meh-ing is frowned upon here. If you think a song is gay, please do as the gay community would do, and be positive. Thanks.";
 
+
         if (vote.vote === -1) { // if vote is 'meh'
-            if (API.getWaitListPosition(vote.user.id) !== -1) { // if user is in waitlist
-                self.sendChat("You have been removed from the DJ Wait List. " + message + " (was: " + (API.getWaitListPosition(vote.user.id)+1) + "/" + API.getWaitList().length + ")", vote.user);
-                API.moderateRemoveDJ(vote.user.id);
-            } else {
-                sendChat(message, vote.user);
-            }
+            self.sendChat(message, vote.user);
+            // if (API.getWaitListPosition(vote.user.id) !== -1) { // if user is in waitlist
+            //     self.sendChat("You have been removed from the DJ Wait List. " + message + " (was: " + (API.getWaitListPosition(vote.user.id)+1) + "/" + API.getWaitList().length + ")", vote.user);
+            //     API.moderateRemoveDJ(vote.user.id);
+            // } else {
+            //     self.sendChat(message, vote.user);
+            // }
         }
     },
 
