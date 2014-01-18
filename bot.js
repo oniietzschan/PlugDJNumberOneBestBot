@@ -145,7 +145,7 @@ var bot =
                 "nero",
                 "skream",
                 "skrillex",
-                "zomby"
+                "zomboy"
             );
 
         return text
