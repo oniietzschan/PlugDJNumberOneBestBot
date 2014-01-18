@@ -23,7 +23,7 @@ var bot =
     sendSongStartMessage: function()
     {
         var self = this,
-            user = API.getDJs()[0],
+            user = API.getDJ(),
             song = API.getMedia(),
             messages = new Array(
                 "here we go rock out",
@@ -39,7 +39,7 @@ var bot =
                 "fucking piece of my dick.....",
                 "listen, i know the start of this track is gay, but bear with me, just wait for the drop, it's worth it",
                 "in a way, {{artist}}s songs are all sad, because they all have an ending",
-                "thanks for 1mil views! {{artists}} ftw",
+                "thanks for 1mil views! {{artist}} ftw",
                 "omgomgom i cna't beliee ppl are liking this song",
                 "{{artist}} are alright..... but not as good as type o negative",
                 "{{artist}} were such a great band, r.i.p. kurt kobain >:",
@@ -165,5 +165,5 @@ var bot =
 API.on(API.CHAT,        bot.pointBreakdownCommand, bot);
 API.on(API.DJ_ADVANCE,  function(){$("#woot").click();});
 API.on(API.DJ_ADVANCE,  bot.sendSongStartMessage, bot);
-API.on(API.VOTE_UPDATE, bot.removeFromWaitlistIfVoteWasMeh, bot);
+//API.on(API.VOTE_UPDATE, bot.removeFromWaitlistIfVoteWasMeh, bot);
 API.on(API.USER_JOIN,   bot.sendUserJoinMessage, bot);
