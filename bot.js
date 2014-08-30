@@ -132,7 +132,7 @@ var bot = {
                     "Video Game Music [+--oo]",
                     "高登音樂台",
                     "{{artist}} 24/7",
-                    "{{artist}}VEVO",
+                    "{{artist}} VEVO",
                     "★{{country}} EDM Community★",
                     "{{dubstep}} 24/7",
                 ];
@@ -232,7 +232,7 @@ var bot = {
 };
 
 API.on(API.CHAT,        bot.pointBreakdownCommand, bot);
-API.on(API.DJ_ADVANCE,  function(){$("#woot").click();});
-API.on(API.DJ_ADVANCE,  bot.sendSongStartMessage, bot);
+API.on(API.ADVANCE,  function(){$("#woot").click();});
+API.on(API.ADVANCE,  bot.sendSongStartMessage, bot);
 //API.on(API.VOTE_UPDATE, bot.removeFromWaitlistIfVoteWasMeh, bot);
 API.on(API.USER_JOIN,   bot.sendUserJoinMessage, bot);
