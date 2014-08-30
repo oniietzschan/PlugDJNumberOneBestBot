@@ -1,6 +1,11 @@
 API.setVolume(0);
+$("#woot").click();
 
 var bot = {
+    woot: function () {
+        $("#woot").click();
+    },
+
     pointBreakdownCommand: function (chatObj) {
         var self = this,
             user = API.getUser(chatObj.fromID),
@@ -17,8 +22,7 @@ var bot = {
         }
     },
 
-    sendSongStartMessage: function ()
-    {
+    sendSongStartMessage: function () {
         var self = this,
             user = API.getDJ(),
             song = API.getMedia(),
@@ -69,18 +73,17 @@ var bot = {
             messages = messagesRare;
         }
 
-        //own Hydropolis
-        var artistCheck = new RegExp("/nero's day at disneyland|neros day at disneyland|bousfield|ndad");
-        if (artistCheck.test( song.author.toLowerCase() ) && user.id == "50aeb38cd6e4a94f7747b604") {
-            self.sendChat(self.getRandomArrayValue(messagesNDAD), user);
-            return;
-        }
+        // //own Hydropolis
+        // var artistCheck = new RegExp("/nero's day at disneyland|neros day at disneyland|bousfield|ndad");
+        // if (artistCheck.test( song.author.toLowerCase() ) && user.id == "50aeb38cd6e4a94f7747b604") {
+        //     self.sendChat(self.getRandomArrayValue(messagesNDAD), user);
+        //     return;
+        // }
 
         self.sendChat(self.getRandomArrayValue(messages));
     },
 
-    removeFromWaitlistIfVoteWasMeh: function (vote)
-    {
+    removeFromWaitlistIfVoteWasMeh: function (vote) {
         var self = this,
             message = "Meh-ing is frowned upon here. If you think a song is gay, please do as the gay community would do, and be positive. Thanks.";
 
@@ -96,15 +99,13 @@ var bot = {
         }
     },
 
-    sendUserJoinMessage: function (user)
-    {
+    sendUserJoinMessage: function (user) {
         var self = this;
 
         self.sendChat("Welcome to " + self.getRoomName(), user);
     },
 
-    getRoomName: function ()
-    {
+    getRoomName: function () {
         var self = this,
             roomnames = [
                     "★Anime Games Music★",
@@ -143,8 +144,7 @@ var bot = {
             return "Hitler & The AIDS, Live!!";
     },
 
-    sendChat: function (messages, user)
-    {
+    sendChat: function (messages, user) {
         var self = this;
 
         if (!self.isArray(messages)) {
@@ -162,13 +162,11 @@ var bot = {
         });
     },
 
-    isArray: function (someVar)
-    {
+    isArray: function (someVar) {
         return (Object.prototype.toString.call( someVar ) === '[object Array]');
     },
 
-    sparseTeenMustache: function (text) //templating the hard way
-    {
+    sparseTeenMustache: function (text) {
         var self = this,
             song = API.getMedia(),
             countries = [
@@ -224,15 +222,16 @@ var bot = {
         ;
     },
 
-    getRandomArrayValue: function (array)
-    {
+    getRandomArrayValue: function (array) {
         var randomIndex = Math.floor(Math.random()*array.length);
         return array[randomIndex];
     }
 };
 
+API.on(API.ADVANCE,     bot.woot, bot);
+API.on(API.ADVANCE,     bot.sendSongStartMessage, bot);
 API.on(API.CHAT,        bot.pointBreakdownCommand, bot);
-API.on(API.ADVANCE,  function(){$("#woot").click();});
-API.on(API.ADVANCE,  bot.sendSongStartMessage, bot);
-//API.on(API.VOTE_UPDATE, bot.removeFromWaitlistIfVoteWasMeh, bot);
 API.on(API.USER_JOIN,   bot.sendUserJoinMessage, bot);
+// API.on(API.VOTE_UPDATE, bot.removeFromWaitlistIfVoteWasMeh, bot);
+
+// API.on(API.ADVANCE, function(){$("#woot").click();});
