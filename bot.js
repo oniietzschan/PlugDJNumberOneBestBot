@@ -37,11 +37,13 @@ var bot = {
             messagesUncommon = [
                     "GREAT SONG",
                     "you guys always ROCK﻿",
-                    "I LOVE YOUR MUSIC ,,,,,,,,,I WAS IN MY 20S .....WHEN I STAYED UP ALNIGHT ---))﻿",
                     "AWESOME SONG",
                     "motley crue﻿",
                     "HERE WE GO SOME DR FEEL GOOD!!!!!.....LETS ROCK !",
+                    "HERE WE GO SOME {{artist_upper}}!!!!!.....LETS ROCK !",
                     "HERE WE GO !!!..GOTTA LOVE PARTYS",
+                    "Now Playing: {{artist}} - {{title}} ({{dubstep}} remix)",
+                    "Now Playing: {{artist}} - {{title}} ({{genre}} remix)",
                 ],
             messagesRare = [
                     "saddle up, pardner, you are about to hear a good song",
@@ -53,13 +55,13 @@ var bot = {
                     "omgomgom i cna't beliee ppl are liking this song",
                     "{{artist_lower}} are alright..... but not as good as type o negative",
                     "{{artist_lower}} were such a great band, r.i.p. kurt kobain >:",
-                    "Now Playing: {{artist}} - {{title}} ({{dubstep}} remix)",
                     "a steampunk fantasy based on the new {{artist_lower}} album",
                     "look here you dumb slut. don't you ever say {{artist_lower}} is for fags and losers. {{artist_lower}} is legendary. they created and change what we call music.",
                     "{{artist_lower}} is for fags, the beatles arn't for fags!!! got it!!!",
                     "I feel like too many people these days only take {{artist}} for face value, only know their radio hits, and just haven't dug into this band nearly as much as I have.",
                     "Come To {{country}}!!!!!!",
-                    [ "I'm on the phone wit the CEO of iTunes he's telling me {{artist_lower}} #{{title_no_spaces}} only been on iTunes for 1hour and u selling like crazy my staff is telling me the server is about to shut down", "I gave the ok to add the most powerful servers to handle this #{{title_no_spaces}} congrats looks like more plaks for U {{artist_lower}} #sufferingfromsuccess" ],
+                    "I LOVE YOUR MUSIC ,,,,,,,,,I WAS IN MY 20S .....WHEN I STAYED UP ALNIGHT ---))﻿",
+                    [ "I'm on the phone wit the CEO of iTunes he's telling me {{artist_lower}} #{{title_no_spaces}} only been on iTunes for 1hour and u selling like crazy my staff is telling me the server is about to shut down", "I gave the ok to add the most powerful servers to handle this #plathheart congrats looks like more plaks for U braids #sufferingfromsuccess" ],
                 ],
             messagesNDAD = [
                     "wow hydropolis who's this exciting new band I don't think you've ever played them before??",
@@ -67,9 +69,9 @@ var bot = {
                 ];
 
 
-        if (Math.random() < 1/10) { //       10% chance to use uncommon messages (increase when we have more messages)
+        if (Math.random() < 3/20) { //       15% chance to use uncommon messages (increase when we have more messages)
             messages = messagesUncommon;
-        } else if (Math.random() < 1/9) { // 10% chance to use rare messages
+        } else if (Math.random() < 2/17) { // 10% chance to use rare messages
             messages = messagesRare;
         }
 
@@ -128,14 +130,18 @@ var bot = {
                     "Rock, Animes & Dubstep",
                     "Rock Wins",
                     "♪ϟ☆ Self-Help Audiobooks Den ☆ϟ♪",
+                    "The Bone Garden",
                     "THE HATALLUMINATI",
+                    "♫ Ｔｈｅ Ｗｅａｔｈｅｒ Ｃｈａｎｎｅｌ ウェザーチャンネル",
                     "[T]rance [H]ouse [C]hill",
                     "Video Game Music [+--oo]",
                     "高登音樂台",
                     "{{artist}} 24/7",
                     "{{artist}} VEVO",
-                    "★{{country}} EDM Community★",
+                    "★{{country}} {{genre}} Community★",
                     "{{dubstep}} 24/7",
+                    "{{genre}} 24/7",
+                    "ϟ {{genre}} {{country}} ϟ",
                 ];
 
         if (Math.random() < 1/10) // 10% chance to use funny joke room name
@@ -156,9 +162,9 @@ var bot = {
                 message = "@" + user.username + " " + message;
             }
 
-            message = self.sparseTeenMustache(message);
-
-            API.sendChat(message);
+            API.sendChat(
+                self.sparseTeenMustache(message)
+            );
         });
     },
 
@@ -207,18 +213,44 @@ var bot = {
                     "Skrillex",
                     "ϟƘƦƖןןΣx﻿",
                     "Zomboy",
+                ],
+            genres = [
+                    "Chillwave",
+                    "Classic Rock",
+                    "Donk",
+                    "Dubstep",
+                    "EBM",
+                    "Electroclash",
+                    "IDM",
+                    "Indie",
+                    "House",
+                    "New Orleans Bounce",
+                    "Nu Rave",
+                    "Noise",
+                    "Rave",
+                    "Techno",
+                    "Trance",
+                    "Witch House",
                 ];
 
         return text
             .replace(/{{artist}}/g,           song.author)
             .replace(/{{artist_lower}}/g,     song.author.toLowerCase())
             .replace(/{{artist_no_spaces}}/g, song.author.toLowerCase().replace(/ /g, ""))
+            .replace(/{{artist_upper}}/g,     song.author.toUpperCase())
             .replace(/{{country}}/g, self.getRandomArrayValue(countries))
+            .replace(/{{country_lower}}/g, self.getRandomArrayValue(countries).toLowerCase())
+            .replace(/{{country_upper}}/g, self.getRandomArrayValue(countries).toUpperCase())
             .replace(/{{dubstep}}/g, self.getRandomArrayValue(dubstep))
             .replace(/{{dubstep_lower}}/g, self.getRandomArrayValue(dubstep).toLowerCase())
+            .replace(/{{dubstep_upper}}/g, self.getRandomArrayValue(dubstep).toUpperCase())
+            .replace(/{{genre}}/g, self.getRandomArrayValue(genres))
+            .replace(/{{genre_lower}}/g, self.getRandomArrayValue(genres).toLowerCase())
+            .replace(/{{genre_upper}}/g, self.getRandomArrayValue(genres).toUpperCase())
             .replace(/{{title}}/g,           song.title)
             .replace(/{{title_lower}}/g,     song.title.toLowerCase())
             .replace(/{{title_no_spaces}}/g, song.title.toLowerCase().replace(/ /g, ""))
+            .replace(/{{title_upper}}/g,     song.title.toUpperCase())
         ;
     },
 
