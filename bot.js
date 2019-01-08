@@ -1,6 +1,3 @@
-API.setVolume(0);
-$("#woot").click();
-
 var bot = {
     messages: [
         "here we go rock out",
@@ -132,7 +129,7 @@ var bot = {
     ],
 
     woot: function () {
-        $("#woot").click();
+        $(".btn-like")[0].click();
     },
 
     pointBreakdownCommand: function (chatObj) {
@@ -257,4 +254,5 @@ API.on(API.CHAT,        bot.pointBreakdownCommand, bot);
 API.on(API.USER_JOIN,   bot.sendUserJoinMessage, bot);
 // API.on(API.VOTE_UPDATE, bot.removeFromWaitlistIfVoteWasMeh, bot);
 
-// API.on(API.ADVANCE, function(){$("#woot").click();});
+bot.woot()
+API.setVolume(0);
