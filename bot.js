@@ -252,6 +252,7 @@ API.on(API.ADVANCE,     bot.woot, bot);
 API.on(API.ADVANCE,     bot.sendSongStartMessage, bot);
 API.on(API.CHAT,        bot.pointBreakdownCommand, bot);
 API.on(API.USER_JOIN,   bot.sendUserJoinMessage, bot);
+// API.on(API.ADVANCE, () => { $(".btn-like")[0].click() }); // Autowoot
 // API.on(API.VOTE_UPDATE, bot.removeFromWaitlistIfVoteWasMeh, bot);
 
 bot.woot()
