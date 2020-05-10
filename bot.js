@@ -47,15 +47,12 @@ const processMessage = (text) => {
     .replace(/{{country_lower}}/g, sample(COUNTRIES).toLowerCase())
     .replace(/{{country_upper}}/g, sample(COUNTRIES).toUpperCase())
     .replace(/{{dubstep}}/g,       sample(DUBSTEP))
-    .replace(/{{dubstep_lower}}/g, sample(DUBSTEP).toLowerCase())
-    .replace(/{{dubstep_upper}}/g, sample(DUBSTEP).toUpperCase())
     .replace(/{{genre}}/g,       sample(GENRES))
-    .replace(/{{genre_lower}}/g, sample(GENRES).toLowerCase())
-    .replace(/{{genre_upper}}/g, sample(GENRES).toUpperCase())
     .replace(/{{title}}/g,           song.title)
     .replace(/{{title_lower}}/g,     song.title.toLowerCase())
     .replace(/{{title_no_spaces}}/g, song.title.toLowerCase().replace(/ /g, ""))
     .replace(/{{title_upper}}/g,     song.title.toUpperCase())
+    .replace(/{{year}}/g, "2020")
 }
 
 const sample = (array) => array[ Math.floor(Math.random() * array.length) ]
@@ -77,8 +74,10 @@ const MESSAGES_UNCOMMON = [
   "HERE WE GO SOME DR FEEL GOOD!!!!!.....LETS ROCK !",
   "HERE WE GO SOME {{artist_upper}}!!!!!.....LETS ROCK !",
   "HERE WE GO !!!..GOTTA LOVE PARTYS",
-  "Now Playing: {{artist}} - {{title}} ({{dubstep}} remix)",
-  "Now Playing: {{artist}} - {{title}} ({{genre}} remix)",
+  "The sweet groovy little thing ....",
+  "Dancing masterpieces...beautiful memories",
+  "{{year}} ,who still play this....Me",
+  "SO POWERFUL! ..enjoy THE MUSIC, freeeeeeeeee your MIND! :)",
 ]
 const MESSAGES_RARE = [
   "saddle up, pardner, you are about to hear a good song",
@@ -101,6 +100,15 @@ const MESSAGES_RARE = [
   "turn up you're speakers for this next one :troll:",
   "{{artist_upper}} GREATEST HITS!!! BEST SONGS OF {{artist_upper}} !!",
   ["1987,I was left in a deep,deep coma with massive brain damage.After three months in my coma,doctors said they were going to turn my life support off !!!", "After {{artist}}s music was played beside my Hospital Bed,my vital signs improved and I was left turned on..", "After thirty years of hell going through a massive recovery I am so happy to listen to {{artist}}s music with a new outlook on life.Thanking you dear {{artist}} ,your music helpped to save my life."],
+  "Here I am back in 1975 ,in my red Trans am ,windows open, radio wide open playing {{artist}} ,cruising the highway ,and feeling the wind on my face ,makes me young again",
+  "I PLAY {{artist_upper}} WAY LOUD IN MY JEEP, YOU CAN HEAR ME COMING UP THRE BLOCK!!!!",
+  "I chose {{title}} to Karaoke tonight at DBar in Dorchester, Ma. The joint was jumpin' for my birthday!¡!",
+  ["{{title_lower}} is the type of song I want playing when I win lottery sitting in a bathtub filled with fruit cocktail juice, sliced fruit, and champagne,", "while surrounded by Brazilian supermodels drinking champagne off their titties while getting bathed in fruit cocktail juice and champagne"],
+  "THIS SONG BRINGS ME MANY MEMORIES OF MY ADOLESCENCE ... VERY GOOD THE SONG ...",
+  "THIS WOULD BE MY ENTRANCE MUSIC IF I WAS A WRESTLER.",
+  "Unfortunetlly, we wont gone listen somethings like this in this days. The music of today dosent have have that \"thing\" to fill you whit joy and makes you fill alive and crack the walls whit volum to the max !!",
+  "I found this by typing \"italo disco\". thank you youtube ai for being the best ai",
+  "The lady in this video is sexy beautiful! :hearts::heart_eyes::kissing_heart::thumbsup:",
 ]
 const ROOM_NAMES = [
   "★Anime Games Music★",
