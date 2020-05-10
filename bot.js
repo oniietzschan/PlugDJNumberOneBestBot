@@ -35,6 +35,10 @@ var bot = {
         "Come To {{country}}!!!!!!",
         "I LOVE YOUR MUSIC ,,,,,,,,,I WAS IN MY 20S .....WHEN I STAYED UP ALNIGHT ---))﻿",
         [ "I'm on the phone wit the CEO of iTunes he's telling me {{artist_lower}} #{{title_no_spaces}} only been on iTunes for 1hour and u selling like crazy my staff is telling me the server is about to shut down", "I gave the ok to add the most powerful servers to handle this #{{title_no_spaces}} congrats looks like more plaks for U {{artist_lower}} #sufferingfromsuccess" ],
+        "in 1991 year my town is completly destroyed in war butt in my basemant alweys play {{artist_lower}}",
+        "turn up you're speakers for this next one :troll:",
+        "{{artist_upper}} GREATEST HITS!!! BEST SONGS OF {{artist_upper}} !!",
+        ["1987,I was left in a deep,deep coma with massive brain damage.After three months in my coma,doctors said they were going to turn my life support off !!!", "After {{artist}}s music was played beside my Hospital Bed,my vital signs improved and I was left turned on..", "After thirty years of hell going through a massive recovery I am so happy to listen to {{artist}}s music with a new outlook on life.Thanking you dear {{artist}} ,your music helpped to save my life."],
     ],
     roomnames: [
         "★Anime Games Music★",
@@ -118,6 +122,8 @@ var bot = {
         "Electroclash",
         "IDM",
         "Indie",
+        "Future Bass",
+        "Future Beats",
         "House",
         "New Orleans Bounce",
         "Nu Rave",
@@ -125,6 +131,7 @@ var bot = {
         "Rave",
         "Techno",
         "Trance",
+        "Trap",
         "Witch House",
     ],
 
@@ -155,9 +162,9 @@ var bot = {
 
         if (Math.random() < 3/20) { //        15% chance to use uncommon messages (increase when we have more messages)
             messages = self.messagesUncommon;
-        } else if (Math.random() < 2/17) { // 10% chance to use rare messages
+        } else if (Math.random() < 3/17) { // 15% chance to use rare messages
             messages = self.messagesRare;
-        } else { //                           75% common messages
+        } else { //                           70% common messages
             messages = self.messages;
         }
 
@@ -198,18 +205,15 @@ var bot = {
     sendChat: function (messages, user) {
         var self = this;
 
-        if (!self.isArray(messages)) {
-            messages = [ messages ];
-        }
-
-        messages.forEach(function(message) {
+        messages = self.isArray(messages) ? messages : [messages]
+        messages.forEach((message, i) => {
             if (typeof user === "object") {
-                message = "@" + user.username + " " + message;
+                message = "@" + user.username + " " + message
             }
 
-            API.sendChat(
-                self.sparseTeenMustache(message)
-            );
+            const text = self.sparseTeenMustache(message)
+            const sendDelay = i * 1050
+            setTimeout(() => API.sendChat(text), sendDelay)
         });
     },
 
