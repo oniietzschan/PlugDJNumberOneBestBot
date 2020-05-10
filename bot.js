@@ -1,3 +1,7 @@
+const woot = () => {
+    $(".btn-like")[0].click()
+}
+
 const sendSongStartMessage = () => sendChat(getSongStartMessage())
 
 const getSongStartMessage = () => {
@@ -12,8 +16,23 @@ const getSongStartMessage = () => {
     return sample(messages)
 }
 
-const woot = () => {
-    $(".btn-like")[0].click()
+const sendUserJoinMessage = (user) => sendChat("Welcome to " + this.getRoomName(), user)
+
+const getRoomName = () => (Math.random() < 1/10)
+    ? sample(ROOM_NAMES)
+    : "Hitler & The AIDS, Live!!"
+
+const sendChat = (messages, user) => {
+    messages = isArray(messages) ? messages : [messages]
+    messages.forEach((message, i) => {
+        if (typeof user === "object") {
+            message = "@" + user.username + " " + message
+        }
+
+        const text = processMessage(message)
+        const sendDelay = i * 1050
+        setTimeout(() => API.sendChat(text), sendDelay)
+    })
 }
 
 const processMessage = (text) => {
@@ -37,25 +56,6 @@ const processMessage = (text) => {
         .replace(/{{title_lower}}/g,     song.title.toLowerCase())
         .replace(/{{title_no_spaces}}/g, song.title.toLowerCase().replace(/ /g, ""))
         .replace(/{{title_upper}}/g,     song.title.toUpperCase())
-}
-
-const sendUserJoinMessage = (user) => sendChat("Welcome to " + this.getRoomName(), user)
-
-const getRoomName = () => (Math.random() < 1/10)
-    ? sample(ROOM_NAMES)
-    : "Hitler & The AIDS, Live!!"
-
-const sendChat = (messages, user) => {
-    messages = isArray(messages) ? messages : [messages]
-    messages.forEach((message, i) => {
-        if (typeof user === "object") {
-            message = "@" + user.username + " " + message
-        }
-
-        const text = processMessage(message)
-        const sendDelay = i * 1050
-        setTimeout(() => API.sendChat(text), sendDelay)
-    })
 }
 
 const sample = (array) => array[ Math.floor(Math.random() * array.length) ]
