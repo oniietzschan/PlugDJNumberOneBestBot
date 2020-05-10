@@ -16,7 +16,7 @@ const getSongStartMessage = () => {
     return sample(messages)
 }
 
-const sendUserJoinMessage = (user) => sendChat("Welcome to " + this.getRoomName(), user)
+const sendUserJoinMessage = (user) => sendChat("Welcome to " + getRoomName(), user)
 
 const getRoomName = () => (Math.random() < 1/10)
     ? sample(ROOM_NAMES)
